@@ -2033,7 +2033,7 @@
           "description": "Severity of the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondHighWindowSize": {
+      "ERGwExpressRouteBitsPerSecondHighWindowSize": {
         "type": "string",
         "defaultValue": "PT5M",
         "allowedValues": [
@@ -2051,7 +2051,7 @@
           "description": "Window size for the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondHighEvaluationFrequency": {
+      "ERGwExpressRouteBitsPerSecondHighEvaluationFrequency": {
         "type": "string",
         "defaultValue": "PT1M",
         "allowedValues": [
@@ -2066,7 +2066,7 @@
           "description": "Evaluation frequency for the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondHighPolicyEffect": {
+      "ERGwExpressRouteBitsPerSecondHighPolicyEffect": {
         "type": "string",
         "defaultValue": "deployIfNotExists",
         "allowedValues": [
@@ -2078,7 +2078,7 @@
           "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondHighAlertState": {
+      "ERGwExpressRouteBitsPerSecondHighAlertState": {
         "type": "string",
         "defaultValue": "true",
         "metadata": {
@@ -2086,7 +2086,7 @@
           "description": "Alert state for the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondHighThreshold": {
+      "ERGwExpressRouteBitsPerSecondHighThreshold": {
         "type": "string",
         "defaultValue": "1800",
         "metadata": {
@@ -2109,7 +2109,7 @@
           "description": "Severity of the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondLowWindowSize": {
+      "ERGwExpressRouteBitsPerSecondLowWindowSize": {
         "type": "string",
         "defaultValue": "PT5M",
         "allowedValues": [
@@ -2127,7 +2127,7 @@
           "description": "Window size for the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondLowEvaluationFrequency": {
+      "ERGwExpressRouteBitsPerSecondLowEvaluationFrequency": {
         "type": "string",
         "defaultValue": "PT1M",
         "allowedValues": [
@@ -2142,7 +2142,7 @@
           "description": "Evaluation frequency for the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondLowPolicyEffect": {
+      "ERGwExpressRouteBitsPerSecondLowPolicyEffect": {
         "type": "string",
         "defaultValue": "deployIfNotExists",
         "allowedValues": [
@@ -2154,7 +2154,7 @@
           "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondLowAlertState": {
+      "ERGwExpressRouteBitsPerSecondLowAlertState": {
         "type": "string",
         "defaultValue": "true",
         "metadata": {
@@ -2162,7 +2162,7 @@
           "description": "Alert state for the alert"
         }
       },
-      "ERGWExpressRouteBitsPerSecondLowThreshold": {
+      "ERGwExpressRouteBitsPerSecondLowThreshold": {
         "type": "string",
         "defaultValue": "1",
         "metadata": {
@@ -4488,19 +4488,19 @@
         "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsReceivedPerSecond_Alert_TooHigh",
         "parameters": {
           "severity": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondHighAlertSeverity')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondHighAlertSeverity')]"
           },
           "windowSize": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondHighWindowSize')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondHighWindowSize')]"
           },
           "evaluationFrequency": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondHighEvaluationFrequency')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondHighEvaluationFrequency')]"
           },
           "effect": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondHighPolicyEffect')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondHighPolicyEffect')]"
           },
           "enabled": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondHighAlertState')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondHighAlertState')]"
           },
           "threshold": {
             "value": "[[parameters('ERGwExpressRouteBitsPerSecondHighThreshold')]"
@@ -4518,19 +4518,19 @@
         "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsReceivedPerSecond_Alert_TooLow",
         "parameters": {
           "severity": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondLowAlertSeverity')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondLowAlertSeverity')]"
           },
           "windowSize": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondLowWindowSize')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondLowWindowSize')]"
           },
           "evaluationFrequency": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondLowEvaluationFrequency')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondLowEvaluationFrequency')]"
           },
           "effect": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondLowPolicyEffect')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondLowPolicyEffect')]"
           },
           "enabled": {
-            "value": "[[parameters('ERGWExpressRouteBitsPerSecondLowAlertState')]"
+            "value": "[[parameters('ERGwExpressRouteBitsPerSecondLowAlertState')]"
           },
           "threshold": {
             "value": "[[parameters('ERGwExpressRouteBitsPerSecondLowThreshold')]"
