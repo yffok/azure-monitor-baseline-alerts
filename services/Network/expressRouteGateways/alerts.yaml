@@ -94,7 +94,7 @@
       scope: Resource
       multiResource: false
   guid: af1ba971-9b73-4b7f-8040-5eff9f5778d5
-- name: ExpressRouteGatewayBitsPerSecondGreater
+- name: ExpressRouteGatewayBitsPerSecondTooHigh
   description: Metric Too high Alert for ExpressRoute Gateway Bits Received Per Second
   type: Metric
   verified: false

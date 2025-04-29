@@ -81,6 +81,8 @@ var loadPolicyDefinitions = {
     loadTextContent('../../../services/Network/expressRouteGateways/Deploy-ERG-BitsInPerSecond-Alert.json')
     loadTextContent('../../../services/Network/expressRouteGateways/Deploy-ERG-BitsOutPerSecond-Alert.json')
     loadTextContent('../../../services/Network/expressRouteGateways/Deploy-ERG-CPUUtilization-Alert.json')
+    loadTextContent('../../../services/Network/expressRouteGateways/Deploy-ERG-BitsReceivedPerSecond-High-Alert.json')
+    loadTextContent('../../../services/Network/expressRouteGateways/Deploy-ERG-BitsReceivedPerSecond-Low-Alert.json')
     loadTextContent('../../../services/Network/expressRoutePorts/Deploy-ERP-BitsInPerSecond-Alert.json')
     loadTextContent('../../../services/Network/expressRoutePorts/Deploy-ERP-BitsOutPerSecond-Alert.json')
     loadTextContent('../../../services/Network/expressRoutePorts/Deploy-ERP-LineProtocol-Alert.json')

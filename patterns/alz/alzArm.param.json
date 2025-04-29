@@ -694,6 +694,42 @@
         "ERGwExpressRouteCpuUtilThreshold": {
           "value": "80"
         },
+        "ERGwExpressRouteBitsPerSecondHighAlertSeverity": {
+          "value": "0"
+        },
+        "ERGWExpressRouteBitsPerSecondHighWindowSize": {
+          "value": "PT5M"
+        },
+        "ERGWExpressRouteBitsPerSecondHighEvaluationFrequency": {
+          "value": "PT1M"
+        },
+        "ERGWExpressRouteBitsPerSecondHighPolicyEffect": {
+          "value": "deployIfNotExists"
+        },
+        "ERGWExpressRouteBitsPerSecondHighAlertState": {
+          "value": "true"
+        },
+        "ERGWExpressRouteBitsPerSecondHighThreshold": {
+          "value": "1800"
+        },
+        "ERGwExpressRouteBitsPerSecondLowAlertSeverity": {
+          "value": "0"
+        },
+        "ERGWExpressRouteBitsPerSecondLowWindowSize": {
+          "value": "PT5M"
+        },
+        "ERGWExpressRouteBitsPerSecondLowEvaluationFrequency": {
+          "value": "PT1M"
+        },
+        "ERGWExpressRouteBitsPerSecondLowPolicyEffect": {
+          "value": "deployIfNotExists"
+        },
+        "ERGWExpressRouteBitsPerSecondLowAlertState": {
+          "value": "true"
+        },
+        "ERGWExpressRouteBitsPerSecondLowThreshold": {
+          "value": "1"
+        },
         "VNETDDOSAttackAlertSeverity": {
           "value": "1"
         },
