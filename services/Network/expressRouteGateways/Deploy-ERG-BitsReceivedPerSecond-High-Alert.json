@@ -95,7 +95,7 @@
             "displayName": "Threshold",
             "description": "Threshold for the alert"
           },
-          "defaultValue": "1800"
+          "defaultValue": "1800000000"
         },
         "effect": {
           "type": "String",
