@@ -95,7 +95,7 @@
             "displayName": "Threshold",
             "description": "Threshold for the alert"
           },
-          "defaultValue": "1800"
+          "defaultValue": "1800000000"
         },
         "effect": {
           "type": "String",
@@ -244,7 +244,7 @@
                     {
                       "type": "Microsoft.Insights/metricAlerts",
                       "apiVersion": "2018-03-01",
-                      "name": "[[concat(parameters('resourceName'), '-GatewayERBitsAlert')]",
+                      "name": "[[concat(parameters('resourceName'), '-ERGwBpsHighAlert')]",
                       "location": "global",
                       "tags": {
                         "_deployed_by_amba": true
@@ -330,4 +330,3 @@
       }
     }
   }
-  
