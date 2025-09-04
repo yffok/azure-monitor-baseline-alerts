@@ -1,15 +1,15 @@
 {
   "type": "Microsoft.Authorization/policyDefinitions",
   "apiVersion": "2021-06-01",
-  "name": "Deploy_Hybrid_VM_AvailableMemory_Alert",
+  "name": "Deploy-VirtualHubs-VirtualHubDataProcessed-Alert",
   "properties": {
     "policyType": "Custom",
     "mode": "All",
-    "displayName": "Deploy Hybrid VM Available Memory Alert",
-    "description": "Policy to audit/deploy VM Available Memory Alert",
+    "displayName": "[Preview]: Deploy Azure Monitor Baseline Alerts (AMBA-ALZ) - Virtual Hub Data Processed Alert",
+    "description": "Policy to audit/deploy Data on how much traffic traverses the virtual hub router in a given time period Alert",
     "metadata": {
-      "version": "1.0.0",
-      "category": "Hybrid Compute",
+      "version": "1.1.0-preview",
+      "category": "Network",
       "source": "https://github.com/Azure/azure-monitor-baseline-alerts/",
       "alzCloudEnvironments": [
         "AzureCloud"
@@ -30,7 +30,7 @@
           "3",
           "4"
         ],
-        "defaultValue": "2"
+        "defaultValue": "0"
       },
       "windowSize": {
         "type": "String",
@@ -39,7 +39,6 @@
           "description": "Window size for the alert"
         },
         "allowedValues": [
-          "PT1M",
           "PT5M",
           "PT15M",
           "PT30M",
@@ -57,7 +56,6 @@
           "description": "Evaluation frequency for the alert"
         },
         "allowedValues": [
-          "PT1M",
           "PT5M",
           "PT15M",
           "PT30M",
@@ -95,7 +93,7 @@
           "displayName": "Threshold",
           "description": "Threshold for the alert"
         },
-        "defaultValue": "1000"
+        "defaultValue": "5000"
       },
       "effect": {
         "type": "String",
@@ -107,13 +105,13 @@
           "deployIfNotExists",
           "disabled"
         ],
-        "defaultValue": "disabled"
+        "defaultValue": "deployIfNotExists"
       },
-      "MonitorDisable": {
+      "MonitorDisableTagName": {
         "type": "String",
         "metadata": {
-          "displayName": "Effect",
-          "description": "Tag name to disable monitoring on resource. Set to true if monitoring should be disabled"
+          "displayName": "ALZ Monitoring disabled tag name",
+          "description": "Tag name used to disable monitoring at the resource level. Set to true if monitoring should be disabled."
         },
         "defaultValue": "MonitorDisable"
       },
@@ -136,10 +134,10 @@
         "allOf": [
           {
             "field": "type",
-            "equals": "Microsoft.HybridCompute/machines"
+            "equals": "microsoft.network/virtualhubs"
           },
           {
-            "field": "[[concat('tags[', parameters('MonitorDisable'), ']')]",
+            "field": "[[concat('tags[', parameters('MonitorDisableTagName'), ']')]",
             "notIn": "[[parameters('MonitorDisableTagValues')]"
           }
         ]
@@ -148,22 +146,22 @@
         "effect": "[[parameters('effect')]",
         "details": {
           "roleDefinitionIds": [
-            "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+            "/providers/Microsoft.Authorization/roleDefinitions/47be4a87-7950-4631-9daf-b664a405f074"
           ],
           "type": "Microsoft.Insights/metricAlerts",
           "existenceCondition": {
             "allOf": [
               {
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricNamespace",
-                "equals": "Microsoft.HybridCompute/machines"
+                "equals": "microsoft.network/virtualhubs"
               },
               {
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].metricName",
-                "equals": "Available Memory Bytes"
+                "equals": "VirtualHubDataProcessed"
               },
               {
                 "field": "Microsoft.Insights/metricalerts/scopes[*]",
-                "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Compute/virtualMachines/', field('fullName'))]"
+                "equals": "[[concat(subscription().id, '/resourceGroups/', resourceGroup().name, '/providers/microsoft.network/virtualhubs/', field('fullName'))]"
               },
               {
                 "field": "Microsoft.Insights/metricAlerts/enabled",
@@ -187,7 +185,7 @@
               },
               {
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].timeAggregation",
-                "equals": "Average"
+                "equals": "Maximum"
               },
               {
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].operator",
@@ -195,7 +193,7 @@
               },
               {
                 "field": "Microsoft.Insights/metricAlerts/criteria.Microsoft-Azure-Monitor-SingleResourceMultipleMetricCriteria.allOf[*].threshold",
-                "equals": "[[parameters('threshold')]"
+                "equals": "[[if(contains(field('tags'), '_amba-VirtualHubDataProcessed-threshold-Override_'), field('tags._amba-VirtualHubDataProcessed-threshold-Override_'), parameters('threshold'))]"
               }
             ]
           },
@@ -244,13 +242,13 @@
                   {
                     "type": "Microsoft.Insights/metricAlerts",
                     "apiVersion": "2018-03-01",
-                    "name": "[[concat(parameters('resourceName'), '-AvailableMemoryAlert')]",
+                    "name": "[[concat(parameters('resourceName'), '-VirtualHubDataProcessedAlert')]",
                     "location": "global",
                     "tags": {
                       "_deployed_by_amba": true
                     },
                     "properties": {
-                      "description": "Metric Alert for Virtual Machine Available Memory (MBytes)",
+                      "description": "Metric Alert for Virtual Hubs Bgp Peer Status",
                       "severity": "[[parameters('severity')]",
                       "enabled": "[[parameters('enabled')]",
                       "scopes": [
@@ -261,12 +259,12 @@
                       "criteria": {
                         "allOf": [
                           {
-                            "name": "Average_AvailableMBytes",
-                            "metricNamespace": "Microsoft.HybridCompute/machines",
-                            "metricName": "Available Memory Bytes",
-                            "operator": "LessThan",
+                            "name": "VirtualHubDataProcessed",
+                            "metricNamespace": "microsoft.network/virtualhubs",
+                            "metricName": "VirtualHubDataProcessed",
+                            "operator": "GreaterThan",
                             "threshold": "[[parameters('threshold')]",
-                            "timeAggregation": "Average",
+                            "timeAggregation": "Maximum",
                             "criterionType": "StaticThresholdCriterion"
                           }
                         ],
@@ -320,7 +318,7 @@
                   "value": "[[parameters('enabled')]"
                 },
                 "threshold": {
-                  "value": "[[parameters('threshold')]"
+                  "value": "[[if(contains(field('tags'), '_amba-VirtualHubDataProcessed-threshold-Override_'), field('tags._amba-VirtualHubDataProcessed-threshold-Override_'), parameters('threshold'))]"
                 }
               }
             }

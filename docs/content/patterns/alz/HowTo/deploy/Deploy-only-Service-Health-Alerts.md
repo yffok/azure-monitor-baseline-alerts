@@ -34,9 +34,13 @@ In this example we will deploy the Service Health Policy Set Definition via Azur
 
 ### 1. Parameter configuration
 
-To start, you can either download a copy of the parameter file according the version of AMBA-ALZ you are going to deploy or clone/fork the repository.
+To begin, download the appropriate parameter file for the version of AMBA-ALZ you are deploying.
 
-- [alzArm.param.json](https://github.com/azure/azure-monitor-baseline-alerts/blob/2025-04-04/patterns/alz/alzArm.param.json) aligned to the latest release
+  {{< hint type=note >}}
+  Forking or cloning the repository isn’t required for the deployment, unless you have customized the policies as described in [How to modify individual policies](../Introduction-to-deploying-the-ALZ-Pattern#how-to-modify-individual-policies)
+  {{< /hint >}}
+
+- [alzArm.param.json](https://github.com/azure/azure-monitor-baseline-alerts/blob/2025-07-02/patterns/alz/alzArm.param.json) aligned to the latest release
 - [alzArm.param.json](https://github.com/azure/azure-monitor-baseline-alerts/blob/main/patterns/alz/alzArm.param.json) aligned to the main branch
 
 The following changes apply to all scenarios, whether you are aligned or unaligned with ALZ or have a single management group.
@@ -55,19 +59,62 @@ The following changes apply to all scenarios, whether you are aligned or unalign
   - Change the value of *```ALZMonitorResourceGroupName```* to the name of the resource group where the activity logs, resource health alerts, actions groups and alert processing rules will be deployed in.
   - Change the value of *```ALZMonitorResourceGroupTags```* to specify the tags to be added to said resource group.
   - Change the value of *```ALZMonitorResourceGroupLocation```* to specify the location for said resource group.
-  - Change the value of *```ALZMonitorActionGroupEmail```* to the email address(es) where notifications of the alerts (including Service Health alerts) are sent to. Leave the value blank if no email notification is used.
-  - Change the value of *```ALZLogicappResourceId```* to the Logic app resource ID to be used as action for the alerts (including Service Health alerts). Leave the value blank if no Logic app is used.
-  - Change the value of *```ALZLogicappCallbackUrl```* to the Logic app callback url of the Logic app you want to use as action for the alerts (including Service Health alerts). Leave the value blank if no Logic app is used. To retrieve the callback url you can either use the [***Get-AzLogicAppTriggerCallbackUrl***](https://learn.microsoft.com/en-us/powershell/module/az.logicapp/get-azlogicapptriggercallbackurl) PowerShell command or navigate to the Logic app in the Azure portal, go to ***Logic app designer***, expand the trigger activity (*When an HTTP request is received*) and copy the value in the URL field using the 2-sheets icon.
+  - Update the *```ALZMonitorActionGroupEmail```* parameter with the email address(es) for alert notifications (including Service Health alerts). Leave it blank if no email notification is required or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)).
+  - Set the *```ALZLogicappResourceId```* parameter to the Logic App resource ID to be used for alert actions (including Service Health alerts). Leave it blank if no Logic App is used or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)). To retrieve the Logic App resource ID, navigate to the resource, in the ***Overview*** panel click on ***JSON View*** and copy the value of the Resource ID field.
+
+    ![Logic App JSON View](../../../media/LogicApp_ResourceID_1.png)
+
+    ![Logic App Resource ID](../../../media/LogicApp_ResourceID_2.png)
+
+  - Update the _```ALZLogicappCallbackUrl```_ parameter with the callback URL of the Logic App to be used for alert actions (including Service Health alerts). Leave it blank if no Logic App is used or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)). To retrieve the callback URL, use the [***Get-AzLogicAppTriggerCallbackUrl***](https://learn.microsoft.com/en-us/powershell/module/az.logicapp/get-azlogicapptriggercallbackurl) PowerShell command or navigate to the Logic App in the Azure portal, go to ***Logic App Designer***, expand the trigger activity (_When an HTTP request is received_), and copy the URL using the copy icon.
 
     ![Get Logic app callback url](../../../media/AMBA-LogicAppCallbackUrl.png)
 
-  - Change the value of *```ALZArmRoleId```* to the Azure Resource Manager Role(s) where notifications of the alerts (including Service Health alerts) are sent to. Leave the value blank if no Azure Resource Manager Role notification is required.
-  - Change the value of *```ALZEventHubResourceId```* to the Event Hubs to be used as action for the alerts (including Service Health alerts). Leave the value blank if no Event Hubs is used.
-  - Change the value of *```ALZWebhookServiceUri```* to the URI(s) to be used as action for the alerts (including Service Health alerts). Leave the value blank if no Webhook is used.
-  - Change the value of *```ALZFunctionResourceId```* to the Function resource ID to be used as action for the alerts (including Service Health alerts). Leave the value blank if no Function is used.
-  - Change the value of *```ALZFunctionTriggerUrl```* to the Function App trigger url of the function to be used as action for the alerts (including Service Health alerts). Leave the value blank if no Function is used. To retrieve the Function App trigger url with the corresponding code, navigate to the HTTP-triggered functions in the Azure portal, go to ***Code + Test***, select **Get function URL** from the menu top menu and copy the value in the URL field using the 2-sheets icon.
+  - Update the value of `_ALZArmRoleId_` to specify the Azure Resource Manager Role(s) that should receive notifications for the alerts, including Service Health alerts. If no notifications are required for any Azure Resource Manager Role, or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)) leave this value blank.
+  - Update the value of _```ALZEventHubResourceId```_ to specify the Event Hubs that will be used for alert actions, including Service Health alerts. Leave it blank if no Event Hubs is used or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)). To retrieve the Event Hubs resource ID, navigate to the resource, in the search box type ***Event Hubs***, click ***Event Hubs***, select the event hub of your interest and in the ***Overview*** page that will load click on ***JSON View*** and copy the value of the Resource ID field.
+
+    ![Event Hub Namespace ](../../../media/EventHub_ResourceID_1.png)
+
+    ![Event Hub JSON View](../../../media/EventHub_ResourceID_2.png)
+
+    ![Event Hub Resource ID](../../../media/EventHub_ResourceID_3.png)
+
+  - Update the _```ALZWebhookServiceUri```_ parameter with the URI(s) of the Webhooks to be used for alert actions, including Service Health alerts. Leave it blank if no Webhooks are used or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)).
+  - Update the _```ALZFunctionResourceId```_ parameter with the resource ID of the Function App to be used for alert actions, including Service Health alerts. Leave it blank if no Function App is used or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)). To retrieve the Function App resource ID, navigate to the resource, in the ***Overview*** panel click on ***JSON View*** and copy the value of the Resource ID field.
+
+    ![Function App JSON View](../../../media/FunctionApp_ResourceID_1.png)
+
+    ![Funtion App Resource ID](../../../media/FunctionApp_ResourceID_2.png)
+
+  - Update the _```ALZFunctionTriggerUrl```_ parameter with the trigger URL of the Function App to be used for alert actions, including Service Health alerts. Leave it blank if no Function App is used or if existing customer-owned action group(s) should be used (see [Bring Your Own Notifications](../../Bring-your-own-Notifications)). To retrieve the Function App trigger URL with the corresponding code, navigate to the HTTP-triggered functions in the Azure portal, go to ***Code + Test***, select **Get function URL** from the top menu, and copy the value in the URL field using the copy icon.
 
     ![Get function URL](../../../media/AMBA-FunctionAppTriggerUrl.png)
+
+  - Update the _```ALZAlertSeverity```_ parameter with the different severity level to be used for alert actions, including Service Health alerts. Leave the default values to notify on every severity level.
+
+    {{< hint type=note >}}
+    Activity Log alerts can only be configured with ***Sev4*** which translates to ***Verbose***. No other severities are allowed. Consider this when changing the default value of the ALZAlertSeverity parameter.
+    {{< /hint >}}
+
+  - Update the _```BYOActionGroup```_ parameter with resource ID of your selected action group to be used for alert actions, including Service Health alerts. Leave it blank to use AMBA-ALZ created action groups. To retrieve the Action Group resource ID, navigate to the ***Monitor*** page, click on ***Action groups***, click on the identified action group, in the ***Overview*** page that will load click on ***JSON View*** and copy the value of the Resource ID field.
+
+    ![Action groups](../../../media/ActionGroup_ResourceID_1.png)
+
+    ![Selected action group](../../../media/ActionGroup_ResourceID_2.png)
+
+    ![Action Group JSON View ID](../../../media/ActionGroup_ResourceID_3.png)
+
+    ![Action Group Resource ID](../../../media/ActionGroup_ResourceID_4.png)
+
+  - Update the _```BYOAlertProcessingRule```_ parameter with the trigger URL of the Function App to be used for alert actions, including Service Health alerts. Leave it blank to use AMBA-ALZ created alert processing rules. To retrieve the Alert Processing Rule resource ID, navigate to the ***Monitor*** page, click on ***Alert Processing Rule***, click on the identified action group, in the ***Overview*** page that will load click on ***JSON View*** and copy the value of the Resource ID field.
+
+    ![Alert Processing Rules](../../../media/AlertProcessingRule_ResourceID_1.png)
+
+    ![Selected lert processing rule](../../../media/AlertProcessingRule_ResourceID_2.png)
+
+    ![Alert Processing Rule JSON View ID](../../../media/AlertProcessingRule_ResourceID_3.png)
+
+    ![Alert Processing Rule Resource ID](../../../media/AlertProcessingRule_ResourceID_4.png)
 
   {{< hint type=note >}}
   It is possible use multiple email addresses, as well as multiple Arm Roles, Webhooks or Event Hubs (not recommended as per ALZ guidance). Should you set multiple entries, make sure they are entered as single string with values separated by comma. Example:
@@ -244,7 +291,7 @@ The parameter file shown below has been truncated for brevity, compared to the s
 
 ### 3. Configuring variables for deployment
 
-Open your preferred command-line tool (Windows PowerShell, Cmd, Bash or other Unix shells), and navigate to the root of the cloned repo and log into Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and Policy Set Definitions.
+Open your preferred command-line tool (Windows PowerShell, Cmd, Bash or other Unix shells), and navigate to the folder where the parameter file was downloaded and log into Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and Policy Set Definitions.
 
 Run the following commands:
 
@@ -263,10 +310,10 @@ The ```location``` variable refers to the deployment location. Deploying to mult
 
 ### 4. Deploying AMBA-ALZ
 
-Using your preferred command-line tool (Windows PowerShell, Cmd, Bash or other Unix shells), if you closed your previous session, navigate again to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and Policy Set Definitions.
+Using your preferred command-line tool (Windows PowerShell, Cmd, Bash or other Unix shells), if you closed your previous session, navigate again to the folder where the parameter file was downloaded and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and Policy Set Definitions.
 
 ```bash
-az deployment mg create --template-uri https://raw.githubusercontent.com/Azure/azure-monitor-baseline-alerts/2025-04-04/patterns/alz/alzArm.json --name "amba-GeneralDeployment" --location $location --management-group-id $pseudoRootManagementGroup --parameters .\patterns\alz\alzArm.param.json
+az deployment mg create --template-uri https://raw.githubusercontent.com/Azure/azure-monitor-baseline-alerts/2025-07-02/patterns/alz/alzArm.json --name "amba-MainDeployment" --location $location --management-group-id $pseudoRootManagementGroup --parameters alzArm.param.json
 ```
 
 </br>
@@ -332,7 +379,7 @@ Make sure you have the [Bicep CLI](https://learn.microsoft.com/en-us/azure/azure
 
 ### 4. Configuring variables for deployment
 
-Open your preferred command-line tool (Windows PowerShell, Cmd, Bash or other Unix shells), and navigate to the root of the cloned repo and log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and Policy Set Definitions.
+Open your preferred command-line tool (Windows PowerShell, Cmd, Bash or other Unix shells), and navigate to the folder where the parameter file was downloaded log on to Azure with an account with at least Resource Policy Contributor access at the root of the management group hierarchy where you will be creating the policies and Policy Set Definitions.
 
 Run the following commands:
 
@@ -354,7 +401,7 @@ The ```location``` variable refers to the deployment location. Deploying to mult
 To deploy policy definitions to the intermediate management group, run the following command:
 
 ```bash
-az deployment mg create --name "amba-ServiveHealthOnly" --template-file .\patterns\alz\policyDefinitions\policies-sh.json --location $location --management-group-id $pseudoRootManagementGroup --parameters '{ \"topLevelManagementGroupPrefix\": { \"value\": \"contoso\" } }'
+az deployment mg create --name "amba-ServiceHealthOnly" --template-file .\patterns\alz\policyDefinitions\policies-sh.json --location $location --management-group-id $pseudoRootManagementGroup --parameters '{ \"topLevelManagementGroupPrefix\": { \"value\": \"contoso\" } }'
 ```
 
 {{< hint type=note >}}
@@ -362,7 +409,7 @@ The command doesn't work in Azure Cloud shell. In Azure Cloud Shell run the foll
 {{< /hint >}}
 
 ```bash
-az deployment mg create --name "amba-ServiveHealthOnly" --template-file ./patterns/alz/policyDefinitions/policies-sh.json --location $location --management-group-id $pseudoRootManagementGroup --parameters topLevelManagementGroupPrefix=contoso
+az deployment mg create --name "amba-ServiceHealthOnly" --template-file ./patterns/alz/policyDefinitions/policies-sh.json --location $location --management-group-id $pseudoRootManagementGroup --parameters topLevelManagementGroupPrefix=contoso
 ```
 
 ### 6. Assign the Service Health Policy Set Definition

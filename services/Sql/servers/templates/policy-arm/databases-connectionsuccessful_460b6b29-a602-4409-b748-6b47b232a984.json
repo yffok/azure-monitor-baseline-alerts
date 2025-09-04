@@ -180,6 +180,10 @@
                 "equals": "Microsoft.Sql/servers/databases"
               },
               {
+                "field": "Microsoft.Sql/servers/databases/sku.tier",
+                "in": ["Basic","Standard","Premium","GeneralPurpose","BusinessCritical","Hyperscale","DataWarehouse"]
+              },
+              {
                 "field": "[[concat('tags[', parameters('MonitorDisableTagName'), ']')]",
                 "notIn": "[[parameters('MonitorDisableTagValues')]"
               }
@@ -192,7 +196,7 @@
                 "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
               ],
               "type": "Microsoft.Insights/metricAlerts",
-              "name": "[[concat(field('name'), '-connection_successful')]",
+              "name": "[[concat(replace(field('fullName'),'/','-'), '-connection_successful')]",
               "existenceCondition": {
                 "allOf": [
                   {
