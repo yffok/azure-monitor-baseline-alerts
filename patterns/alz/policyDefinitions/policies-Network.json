@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.28.1.47646",
-      "templateHash": "11276469234940072351"
+      "templateHash": "11083883811013943336"
     }
   },
   "parameters": {
@@ -2212,6 +2212,158 @@
             "defaultValue": "80",
             "metadata": {
               "displayName": "ER Gw Express Route Cpu Util Threshold",
+              "description": "Threshold for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondHighAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too High Alert Severity",
+              "description": "Severity of the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondHighWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too High Window Size",
+              "description": "Window size for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondHighEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too High Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondHighPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Per Second Too high Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondHighAlertState": {
+            "type": "string",
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too High Alert State",
+              "description": "Alert state for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondHighThreshold": {
+            "type": "string",
+            "defaultValue": "1800",
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too High Threshold",
+              "description": "Threshold for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondLowAlertSeverity": {
+            "type": "String",
+            "defaultValue": "0",
+            "allowedValues": [
+              "0",
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Alert Too Low Severity",
+              "description": "Severity of the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondLowWindowSize": {
+            "type": "string",
+            "defaultValue": "PT5M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H",
+              "PT6H",
+              "PT12H",
+              "P1D"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too Low Window Size",
+              "description": "Window size for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondLowEvaluationFrequency": {
+            "type": "string",
+            "defaultValue": "PT1M",
+            "allowedValues": [
+              "PT1M",
+              "PT5M",
+              "PT15M",
+              "PT30M",
+              "PT1H"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too Low Evaluation Frequency",
+              "description": "Evaluation frequency for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondLowPolicyEffect": {
+            "type": "string",
+            "defaultValue": "deployIfNotExists",
+            "allowedValues": [
+              "deployIfNotExists",
+              "disabled"
+            ],
+            "metadata": {
+              "displayName": "ER Gw Bits Received Per Second Too Low Policy Effect",
+              "description": "Policy effect for the alert, deployIfNotExists will deploy the alert if it does not exist, disabled will not deploy the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondLowAlertState": {
+            "type": "string",
+            "defaultValue": "true",
+            "metadata": {
+              "displayName": "ER Gw Express Bits Received Per Second Too Low Alert State",
+              "description": "Alert state for the alert"
+            }
+          },
+          "ERGwExpressRouteBitsPerSecondLowThreshold": {
+            "type": "string",
+            "defaultValue": "1",
+            "metadata": {
+              "displayName": "ER Gw Express Bits Received Per Second Too Low Threshold",
               "description": "Threshold for the alert"
             }
           },
@@ -4519,6 +4671,66 @@
               },
               "threshold": {
                 "value": "[[[parameters('ERGwExpressRouteCpuUtilThreshold')]"
+              },
+              "MonitorDisableTagName": {
+                "value": "[[[parameters('ALZMonitorDisableTagName')]"
+              },
+              "MonitorDisableTagValues": {
+                "value": "[[[parameters('ALZMonitorDisableTagValues')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteBitsPerSecondHigh",
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsReceivedPerSecond_Alert_TooHigh",
+            "parameters": {
+              "severity": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighPolicyEffect')]"
+              },
+              "enabled": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighAlertState')]"
+              },
+              "threshold": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighThreshold')]"
+              },
+              "MonitorDisableTagName": {
+                "value": "[[[parameters('ALZMonitorDisableTagName')]"
+              },
+              "MonitorDisableTagValues": {
+                "value": "[[[parameters('ALZMonitorDisableTagValues')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteBitsPerSecondLow",
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsReceivedPerSecond_Alert_TooLow",
+            "parameters": {
+              "severity": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowPolicyEffect')]"
+              },
+              "enabled": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowAlertState')]"
+              },
+              "threshold": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowThreshold')]"
               },
               "MonitorDisableTagName": {
                 "value": "[[[parameters('ALZMonitorDisableTagName')]"
