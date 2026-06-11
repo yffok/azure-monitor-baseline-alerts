@@ -4,8 +4,8 @@
   "metadata": {
     "_generator": {
       "name": "bicep",
-      "version": "0.34.44.8038",
-      "templateHash": "8606867874371409229"
+      "version": "0.44.1.10279",
+      "templateHash": "4798736397860069095"
     }
   },
   "parameters": {
@@ -21872,6 +21872,66 @@
               },
               "threshold": {
                 "value": "[[[parameters('ERGwExpressRouteCpuUtilThreshold')]"
+              },
+              "MonitorDisableTagName": {
+                "value": "[[[parameters('ALZMonitorDisableTagName')]"
+              },
+              "MonitorDisableTagValues": {
+                "value": "[[[parameters('ALZMonitorDisableTagValues')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteBitsPerSecondHigh",
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsReceivedPerSecond_Alert_TooHigh",
+            "parameters": {
+              "severity": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighPolicyEffect')]"
+              },
+              "enabled": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighAlertState')]"
+              },
+              "threshold": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondHighThreshold')]"
+              },
+              "MonitorDisableTagName": {
+                "value": "[[[parameters('ALZMonitorDisableTagName')]"
+              },
+              "MonitorDisableTagValues": {
+                "value": "[[[parameters('ALZMonitorDisableTagValues')]"
+              }
+            }
+          },
+          {
+            "policyDefinitionReferenceId": "ALZ_ERGwExpressRouteBitsPerSecondLow",
+            "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/Deploy_ERGw_ExpressRouteBitsReceivedPerSecond_Alert_TooLow",
+            "parameters": {
+              "severity": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowAlertSeverity')]"
+              },
+              "windowSize": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowWindowSize')]"
+              },
+              "evaluationFrequency": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowEvaluationFrequency')]"
+              },
+              "effect": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowPolicyEffect')]"
+              },
+              "enabled": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowAlertState')]"
+              },
+              "threshold": {
+                "value": "[[[parameters('ERGwExpressRouteBitsPerSecondLowThreshold')]"
               },
               "MonitorDisableTagName": {
                 "value": "[[[parameters('ALZMonitorDisableTagName')]"
